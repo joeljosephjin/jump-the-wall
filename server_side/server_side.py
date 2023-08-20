@@ -1,5 +1,6 @@
 import socket
 import time
+import argparse
 
 
 def get_handshake(server_ip="127.0.0.1", server_port=8080):
@@ -27,20 +28,32 @@ def get_handshake(server_ip="127.0.0.1", server_port=8080):
 	return client_socket
 
 
-# make handshake and get ip/port
-# client_socket = get_handshake()
-client_socket = get_handshake('172.31.36.4',8080)
+def send_file_tcp(filename='server_test_file.txt', server_ip='172.31.36.4', server_port=8080):
 
-# Open the file
-# with open('dsfghj.0.6.py', 'rb') as file:
-with open('server_test_file.txt', 'rb') as file:
-    # Read and send the file data in chunks
-    while True:
-        chunk = file.read(1024)  # Read 1024 bytes at a time
-        if not chunk:
-            break  # End of file
-        
-        # Send the chunk
-        client_socket.send(chunk)
+    # make handshake and get ip/port
+    client_socket = get_handshake(server_ip, server_port)
 
-client_socket.close()
+    # Open the file
+    with open(filename, 'rb') as file:
+        # Read and send the file data in chunks
+        while True:
+            chunk = file.read(1024)  # Read 1024 bytes at a time
+            if not chunk:
+                break  # End of file
+            
+            # Send the chunk
+            client_socket.send(chunk)
+
+    client_socket.close()
+
+if __name__=="__main__":
+    parser = argparse.ArgumentParser(description='Send file to client')
+    parser.add_argument('--filename', default='server_test_file.txt')
+    parser.add_argument('--server-ip', default='172.31.36.4')
+    parser.add_argument('--server-port', default=8080)
+    args = parser.parse_args()
+    
+    send_file_tcp(filename=args.filename, server_ip=args.server_ip, server_port=args.server_port)
+
+    
+    

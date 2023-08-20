@@ -2,8 +2,8 @@
 Receive file through special way
 """
 import socket
-# from utils_tcp import receive_file
 import time
+import argparse
 
 
 # send a connection to the server
@@ -25,21 +25,29 @@ def send_handshake(server_ip="127.0.0.1", server_port=8080):
 	# client_socket.close()
 	return client_socket
 
-# client_socket = send_handshake()
-client_socket = send_handshake('35.78.89.143',8080)
+def receive_file_tcp(filename='client_test_file.txt', ip='35.78.89.143', port=8080):
+    # client_socket = send_handshake()
+    client_socket = send_handshake(ip, port)
 
-# receive_file('file.txt', "127.0.0.1", 8080)
-
-# Open the file for writing
-with open('file.txt', 'wb') as file:
-    # Receive and write the file data
-    while True:
-        chunk = client_socket.recv(1024)  # Receive 1024 bytes at a time
-        if not chunk:
-            break  # End of file transmission
-        
-        # Write the chunk to the file
-        file.write(chunk)
+    # Open the file for writing
+    with open(filename, 'wb') as file:
+        # Receive and write the file data
+        while True:
+            chunk = client_socket.recv(1024)  # Receive 1024 bytes at a time
+            if not chunk:
+                break  # End of file transmission
+            
+            # Write the chunk to the file
+            file.write(chunk)
 
 
-client_socket.close()
+    client_socket.close()
+
+if __name__=="__main__":
+    parser = argparse.ArgumentParser(description='Receive file from client')
+    parser.add_argument('--server-ip', default='54.95.32.16')
+    parser.add_argument('--server-port', default=8080)
+    args = parser.parser_args()
+    receive_file_tcp(filename='client_test_file.txt', ip=args.server_ip, port=args.server_port)
+
+
