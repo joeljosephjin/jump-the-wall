@@ -48,7 +48,7 @@ def send_file_tcp(filename='server_test_file.txt', server_ip='172.31.36.4', serv
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description='Send file to client')
-    parser.add_argument('--filename', default='server_test_file.txt')
+    parser.add_argument('--filename', default='server_side/server_test_file.txt')
     parser.add_argument('--server-ip', default='172.31.36.4')
     parser.add_argument('--server-port', default=8080)
     args = parser.parse_args()
