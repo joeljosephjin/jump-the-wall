@@ -32,7 +32,8 @@ def send_file_tcp(filename='server_test_file.txt', server_ip='172.31.36.4', serv
 
     # make handshake and get ip/port
     client_socket = get_handshake(server_ip, server_port)
-
+    
+    print("[send_file_tcp] Sending file...")
     # Open the file
     with open(filename, 'rb') as file:
         # Read and send the file data in chunks
@@ -43,8 +44,10 @@ def send_file_tcp(filename='server_test_file.txt', server_ip='172.31.36.4', serv
             
             # Send the chunk
             client_socket.send(chunk)
-
+    
+    print("[send_file_tcp] File sent successfully!")
     client_socket.close()
+    print("[send_file_tcp] Socket Closed!")
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description='Send file to client')

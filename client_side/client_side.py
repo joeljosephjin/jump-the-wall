@@ -29,6 +29,7 @@ def receive_file_tcp(filename='client_test_file.txt', ip='35.78.89.143', port=80
     # client_socket = send_handshake()
     client_socket = send_handshake(ip, port)
 
+    print("[receive_file_tcp] Receiving File...")
     # Open the file for writing
     with open(filename, 'wb') as file:
         # Receive and write the file data
@@ -40,8 +41,10 @@ def receive_file_tcp(filename='client_test_file.txt', ip='35.78.89.143', port=80
             # Write the chunk to the file
             file.write(chunk)
 
-
+    print("[receive_file_tcp] File Received Successfully!")
     client_socket.close()
+    print("[receive_file_tcp] Socket Closed!")
+
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description='Receive file from client')
