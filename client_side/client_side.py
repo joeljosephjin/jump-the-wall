@@ -47,7 +47,7 @@ if __name__=="__main__":
     parser = argparse.ArgumentParser(description='Receive file from client')
     parser.add_argument('--server-ip', default='54.95.32.16')
     parser.add_argument('--server-port', default=8080)
-    args = parser.parser_args()
+    args = parser.parse_args()
     receive_file_tcp(filename='client_test_file.txt', ip=args.server_ip, port=args.server_port)
 
 
