@@ -48,6 +48,6 @@ if __name__=="__main__":
     parser.add_argument('--server-ip', default='54.95.32.16')
     parser.add_argument('--server-port', default=8080)
     args = parser.parse_args()
-    receive_file_tcp(filename='client_test_file.txt', ip=args.server_ip, port=args.server_port)
+    receive_file_tcp(filename='test_file.txt', ip=args.server_ip, port=args.server_port)
 
 
